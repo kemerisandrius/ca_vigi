@@ -7,10 +7,12 @@ import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        FileInputStream inputStream = null;
+        FileOutputStream outputStream = null;
         try {
-            FileInputStream inputStream = new FileInputStream("files/original.txt");
-            FileOutputStream outputStream = new FileOutputStream("files/copy.txt");
+            inputStream = new FileInputStream("files/original.txt");
+            outputStream = new FileOutputStream("files/copy.txt");
 
             for (int data; (data = inputStream.read()) != -1; ) {
                 outputStream.write(data);
@@ -22,6 +24,13 @@ public class Main {
         } catch (IOException e) {
             System.out.println("Klaida bandant skaityt arba rasyti");
             System.exit(2);
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+            if (outputStream != null) {
+                outputStream.close();
+            }
         }
     }
 
